@@ -21,6 +21,9 @@ public:
 
     void setList(const QList<UserModel *> &users);
 
+signals:
+    void clickedDetails(QString);
+
 private:
     Ui::UserListView *ui;
 };

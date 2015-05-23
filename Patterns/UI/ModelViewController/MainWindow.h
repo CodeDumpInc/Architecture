@@ -12,6 +12,9 @@ class MainWindow
 public:
     MainWindow(MainController &controller, QWidget *parent = 0);
 
+private slots:
+    void changeView(const QString& path);
+
 private:
     MainController &m_controller;
 };

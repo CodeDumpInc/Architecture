@@ -21,3 +21,14 @@ QList<UserModel*> UserRepository::allUsers()
 {
     return m_s;
 }
+
+UserModel *UserRepository::user(const QString &name)
+{
+    foreach(UserModel *user, m_s) {
+        if(user && user->name() == name) {
+            return user;
+        }
+    }
+
+    return 0;
+}

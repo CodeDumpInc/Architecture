@@ -9,3 +9,7 @@ make requests to change views. This way, each view can define requests, which ar
 * Another way would be to let the controller listen to views, which means that each view has to define an interface for doing so, and the controller has to know for which request which view is needed - that's its purpose.
 
 That means that the main window has to listen for requested changes of the current view.
+
+## Controllers and views ##
+
+When a view has transitions to other views, the intention of switching to another view has to be signalled to the controller. This means that the controller has to know the interface of each component it serves not only in which model it uses but also which transitions it supports. This can be either done explicit by use of callbacks/signals or implicitly via string parsing as it happens in web applications.

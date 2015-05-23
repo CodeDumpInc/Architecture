@@ -20,6 +20,11 @@ UserListView::~UserListView()
 void UserListView::setList(const QList<UserModel*> &users)
 {
     foreach( const UserModel *user, users) {
-        this->layout()->addWidget(new UserWidget(user->name(), user->mail()));
+
+        UserWidget *widget = new UserWidget(user->name(), user->mail());
+
+        this->connect(widget, SIGNAL(clickedDetails(QString)), SIGNAL(clickedDetails(QString)));
+
+        this->layout()->addWidget(widget);
     }
 }

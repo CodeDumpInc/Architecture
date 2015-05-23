@@ -11,9 +11,16 @@ UserWidget::UserWidget(const QString &name, const QString &mail, QWidget *parent
 
     ui->name->setText(name);
     ui->email->setText(mail);
+
+    this->connect(ui->toolButton, SIGNAL(clicked()), SLOT(onDetailsClicked()));
 }
 
 UserWidget::~UserWidget()
 {
     delete ui;
+}
+
+void UserWidget::onDetailsClicked()
+{
+    emit this->clickedDetails(ui->name->text());
 }
