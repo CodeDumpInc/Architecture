@@ -1,5 +1,7 @@
 #include "UserModel.h"
 
+#include <QDebug>
+
 using namespace Users;
 
 UserModel::UserModel(const QString &name, const QString &mail)
@@ -16,4 +18,18 @@ const QString &UserModel::name() const
 const QString &UserModel::mail() const
 {
     return m_mail;
+}
+
+void UserModel::setName(const QString &name)
+{
+    m_name = name;
+
+    qDebug() << "Name changed to" << name;
+}
+
+void UserModel::setMail(const QString &mail)
+{
+    m_mail = mail;
+
+    qDebug() << "Mail changed to" << mail;
 }

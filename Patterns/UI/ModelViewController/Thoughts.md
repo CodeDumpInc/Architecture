@@ -13,3 +13,8 @@ That means that the main window has to listen for requested changes of the curre
 ## Controllers and views ##
 
 When a view has transitions to other views, the intention of switching to another view has to be signalled to the controller. This means that the controller has to know the interface of each component it serves not only in which model it uses but also which transitions it supports. This can be either done explicit by use of callbacks/signals or implicitly via string parsing as it happens in web applications.
+
+
+## Views and models ##
+
+Views and Models are coupled because a view retrieves its data directly from a model instance and it has to listen to the models state.
