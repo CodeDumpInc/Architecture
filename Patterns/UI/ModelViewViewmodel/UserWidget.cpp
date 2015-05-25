@@ -34,26 +34,19 @@ UserWidget::~UserWidget()
     delete ui;
 }
 
+static const QString invalidStyle("background-color: rgba(255, 0, 0, 1.0);");
+
 void UserWidget::onEmailValidityChanged(bool valid)
 {
-    qDebug() << valid;
-    const QString stylesheet = valid ? "" : "background-color: rgba(255, 0, 0, 1.0);";
-
-    ui->emailEdit->setStyleSheet(stylesheet);
+    ui->emailEdit->setStyleSheet(valid ? "" : invalidStyle);
 }
 
 void UserWidget::onFirstNameValidityChanged(bool valid)
 {
-    qDebug() << valid;
-    const QString stylesheet = valid ? "" : "background-color: rgba(255, 0, 0, 1.0);";
-
-    ui->firstNameEdit->setStyleSheet(stylesheet);
+    ui->firstNameEdit->setStyleSheet(valid ? "" : invalidStyle);
 }
 
 void UserWidget::onLastNameValidityChanged(bool valid)
 {
-    qDebug() << valid;
-    const QString stylesheet = valid ? "" : "background-color: rgba(255, 0, 0, 1.0);";
-
-    ui->lastNameEdit->setStyleSheet(stylesheet);
+    ui->lastNameEdit->setStyleSheet(valid ? "" : invalidStyle);
 }
