@@ -4,113 +4,53 @@
 
 using namespace std;
 
-class Node;
-class CameraNode;
-class GeometryNode;
-class LightNode;
-class MaterialNode;
-
-class NodeVisitor {
-public:
-    virtual void visit(Node &node) = 0;
-    virtual void visit(CameraNode &node) = 0;
-    virtual void visit(GeometryNode &node) = 0;
-    virtual void visit(LightNode &node) = 0;
-    virtual void visit(MaterialNode &node) = 0;
-};
-
-class Node {
-    std::vector<std::shared_ptr<Node> > m_children;
-
-public:
-    void addNode(std::shared_ptr<Node> node) {
-        m_children.push_back(node);
-    }
-
-    void traverse(NodeVisitor &visitor) {
-        this->acceptVisitor(visitor);
-        for(auto &child : m_children) {
-            child->traverse(visitor);
-        }
-    }
-protected:
-    virtual void acceptVisitor(NodeVisitor &visitor) {
-        visitor.visit(*this);
-    }
-};
-
-class CameraNode : public Node {
-public:
-    void acceptVisitor(NodeVisitor &visitor) {
-        visitor.visit(*this);
-    }
-};
-
-class GeometryNode : public Node {
-public:
-    void acceptVisitor(NodeVisitor &visitor) {
-        visitor.visit(*this);
-    }
-};
-
-class LightNode : public Node  {
-public:
-    void acceptVisitor(NodeVisitor &visitor) {
-        visitor.visit(*this);
-    }
-};
-
-class MaterialNode : public Node  {
-public:
-    void acceptVisitor(NodeVisitor &visitor) {
-        visitor.visit(*this);
-    }
-};
-
-
+#include "NodeVisitor.h"
+#include "Nodes.h"
 
 class NodePrintVisitor : public NodeVisitor {
 public:
-    virtual void visit(Node &node)
+    void visit(CameraNode &)
     {
-        std::cout << "Visit node" << std::endl;
+        std::cout << "Camera Node visited!" << std::endl;
     }
 
-    virtual void visit(CameraNode &node)
+    void visit(LightNode &)
     {
-        std::cout << "Visit camera node" << std::endl;
+        std::cout << "Light Node visited!" << std::endl;
     }
 
-    virtual void visit(GeometryNode &node)
+    void visit(MaterialNode &)
     {
-        std::cout << "Visit geometry node" << std::endl;
+        std::cout << "Material Node visited!" << std::endl;
     }
 
-    virtual void visit(LightNode &node)
+    void visit(Node &)
     {
-        std::cout << "Visit light node" << std::endl;
+        std::cout << "Node visited!" << std::endl;
     }
 
-    virtual void visit(MaterialNode &node)
+    void visit(GeometryNode &)
     {
-        std::cout << "Visit material node" << std::endl;
+        std::cout << "Geometry Node visited!" << std::endl;
     }
 };
 
 int main()
 {
+    std::vector<std::shared_ptr<Node> > nodes;
 
-    auto root = std::make_shared<Node>();
-    auto camera = std::make_shared<CameraNode>();
-
-    camera->addNode(std::make_shared<LightNode>());
-    camera->addNode(std::make_shared<MaterialNode>());
-    camera->addNode(std::make_shared<GeometryNode>());
-
-    root->addNode(camera);
+    nodes.push_back(std::make_shared<CameraNode>());
+    nodes.push_back(std::make_shared<LightNode>());
+    nodes.push_back(std::make_shared<MaterialNode>());
+    nodes.push_back(std::make_shared<Node>());
+    nodes.push_back(std::make_shared<GeometryNode>());
+    nodes.push_back(std::make_shared<GeometryNode>());
 
     NodePrintVisitor visitor;
-    root->traverse(visitor);
+
+    for(auto node : nodes) {
+        node->accept(visitor);
+    }
 
     return 0;
 }
